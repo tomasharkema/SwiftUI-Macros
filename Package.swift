@@ -1,8 +1,8 @@
 // swift-tools-version: 6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
-import PackageDescription
 import CompilerPluginSupport
+import PackageDescription
 
 let package = Package(
     name: "SwiftUIMacros",
@@ -11,17 +11,17 @@ let package = Package(
         .library(
             name: "SwiftUIMacros",
             targets: ["SwiftUIMacros"]
-        ),
+        )
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-syntax", from: "602.0.0")
+        .package(url: "https://github.com/swiftlang/swift-syntax", from: "602.0.0")
     ],
     targets: [
         .macro(
             name: "SwiftUIMacrosImpl",
             dependencies: [
                 .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
-                .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
+                .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
             ]
         ),
 
