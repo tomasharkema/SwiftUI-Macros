@@ -1,12 +1,12 @@
 import SwiftSyntaxMacros
 import SwiftSyntaxMacrosTestSupport
-import XCTest
 import SwiftUIMacrosImpl
+import XCTest
 
 let testMacros: [String: Macro.Type] = [
     "EnvironmentStorage": EnvironmentStorage.self,
     "EnvironmentValue": AttachedMacroEnvironmentKey.self,
-    "FocusedValue": AttachedMacroFocusedValueKey.self
+    "FocusedValue": AttachedMacroFocusedValueKey.self,
 ]
 
 final class MyMacroTests: XCTestCase {
@@ -19,22 +19,22 @@ final class MyMacroTests: XCTestCase {
             }
             """,
             expandedSource:
-            """
-            struct Hello {
-                var test: Bool {
-                    get {
-                        self [EnvironmentKey_test.self]
+                """
+                struct Hello {
+                    var test: Bool {
+                        get {
+                            self[EnvironmentKey_test.self]
+                        }
+                        set {
+                            self[EnvironmentKey_test.self] = newValue
+                        }
                     }
-                    set {
-                        self [EnvironmentKey_test.self] = newValue
-                    }
-                }
 
-                private struct EnvironmentKey_test: EnvironmentKey {
-                    static let defaultValue: Bool = false
+                    private struct EnvironmentKey_test: EnvironmentKey {
+                        static let defaultValue: Bool = false
+                    }
                 }
-            }
-            """,
+                """,
             macros: testMacros
         )
     }
@@ -48,22 +48,22 @@ final class MyMacroTests: XCTestCase {
             }
             """,
             expandedSource:
-            """
-            struct Hello {
-                var test: Bool? {
-                    get {
-                        self [FocusedValueKey_test.self]
+                """
+                struct Hello {
+                    var test: Bool? {
+                        get {
+                            self[FocusedValueKey_test.self]
+                        }
+                        set {
+                            self[FocusedValueKey_test.self] = newValue
+                        }
                     }
-                    set {
-                        self [FocusedValueKey_test.self] = newValue
-                    }
-                }
 
-                private struct FocusedValueKey_test: FocusedValueKey {
-                    typealias Value = Bool
+                    private struct FocusedValueKey_test: FocusedValueKey {
+                        typealias Value = Bool
+                    }
                 }
-            }
-            """,
+                """,
             macros: testMacros
         )
     }
@@ -77,12 +77,12 @@ final class MyMacroTests: XCTestCase {
             }
             """,
             expandedSource:
-            """
-            extension EnvironmentValues {
-                @EnvironmentKey
-                var test: Bool = false
-            }
-            """,
+                """
+                extension EnvironmentValues {
+                    @EnvironmentKey
+                    var test: Bool = false
+                }
+                """,
             macros: testMacros
         )
     }
